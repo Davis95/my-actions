@@ -20,10 +20,12 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
+
+    # Check the comment body for the deploy command. If the command is not there, we fail the work flow.
     - name: Check for Autodeploy
       env:
         COMMENT_BODY: ${{ github.event.payload.comment.body }}
-      if: startsWith($COMMENT_BODY, '!sailbot autodeploy')
+      if: startsWith($COMMENT_BODY, '!sailbot autodeploy') != true
       run: exit 1
   
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
