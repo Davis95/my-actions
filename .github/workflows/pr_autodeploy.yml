@@ -12,7 +12,7 @@ on:
      - created
 
 env:
-  ISSUE_COMMENT: ${{ toJson(github) }}
+  ISSUE_COMMENT: ${{ toJson(github.event.comment) }}
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
