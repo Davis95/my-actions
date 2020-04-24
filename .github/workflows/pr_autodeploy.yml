@@ -26,16 +26,23 @@ jobs:
 
     # Check the comment body for the deploy command. If the command is not there, we fail the work flow.
     - name: Check for Autodeploy
-      if: startsWith(env.COMMENT_BODY, '!sailbot autodeploy') != true
-      run: exit 1
+      if: startsWith(env.COMMENT_BODY, '!sailbot autodeploy')
+      run: echo Autodeploy command found, starting workflow...
   
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
     - name: Checkout Repo
+      if: success()
       uses: actions/checkout@v2
 
     # Install deps
-    # - name: Install Deps
-    #   run: npm ci
+    - name: Install Deps
+      run: npm ci
+
+    
+    # - name: Get Pull Request Merge Commit SHA
+    #   uses: 
+
+   
 
     # # # Check for auto deploy
     # - name: Run Autodeploy Check Step
