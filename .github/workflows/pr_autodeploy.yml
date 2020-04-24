@@ -11,9 +11,6 @@ on:
     types:
      - created
 
-env:
-  ISSUE_COMMENT: ${{ toJson(github.event.comment) }}
-
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
@@ -23,11 +20,10 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-    - name: Check Vars
-      run: echo "$ISSUE_COMMENT"
-
     # Check the comment body for the deploy command. If the command is not there, we fail the work flow.
     - name: Check for Autodeploy
+      env:
+        ISSUE_COMMENT: ${{ toJson(github.event.comment) }}
       if: startsWith(env.ISSUE_COMMENT.body, '!sailbot autodeploy') == 'false'
       run: exit 1
   
