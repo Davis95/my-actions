@@ -11,6 +11,9 @@ on:
     types:
      - created
 
+env:
+  COMMENT_BODY: ${{ github.event.payload.comment.body }}
+
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
@@ -23,9 +26,7 @@ jobs:
 
     # Check the comment body for the deploy command. If the command is not there, we fail the work flow.
     - name: Check for Autodeploy
-      env:
-        COMMENT_BODY: ${{ github.event.payload.comment.body }}
-      if: startsWith($COMMENT_BODY, '!sailbot autodeploy') != true
+      if: startsWith("$COMMENT_BODY", "!sailbot autodeploy") != true
       run: exit 1
   
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
