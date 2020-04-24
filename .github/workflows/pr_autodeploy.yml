@@ -21,11 +21,11 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
     # Check the comment body for the deploy command. If the command is not there, we fail the work flow.
-    - name: No Autodeploy Command Found
-      env:
-        ISSUE_COMMENT: ${{ toJson(github.event.comment) }}
-      if: startsWith(env.ISSUE_COMMENT.body, '!sailbot autodeploy') == 'false'
-      run: exit 1
+    # - name: No Autodeploy Command Found
+    #   env:
+    #     ISSUE_COMMENT: ${{ toJson(github.event.comment) }}
+    #   if: startsWith(env.ISSUE_COMMENT.body, '!sailbot autodeploy') == 'false'
+    #   run: exit 1
   
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
     - name: Checkout Repo
@@ -35,10 +35,9 @@ jobs:
     - name: Install Deps
       run: npm ci
 
-    # # # Check for auto deploy
-    # - name: Run Autodeploy Check Step
-    #   # uses: ./.github/actions/check-for-autodeploy
-    #   if: startsWith(github.event.payload.comment.body, '!sailbot autodeploy')
+    # Check for auto deploy
+    - name: Find Autodeploy Command
+      uses: ./.github/actions/check-for-autodeploy
 
     # # Black Box step
     # - name: Run Black Box Step
