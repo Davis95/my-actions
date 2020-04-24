@@ -21,7 +21,7 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
     # Check the comment body for the deploy command. If the command is not there, we fail the work flow.
-    - name: Check for Autodeploy
+    - name: No Autodeploy Command Found
       env:
         ISSUE_COMMENT: ${{ toJson(github.event.comment) }}
       if: startsWith(env.ISSUE_COMMENT.body, '!sailbot autodeploy') == 'false'
