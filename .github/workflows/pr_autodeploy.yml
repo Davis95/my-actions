@@ -28,7 +28,7 @@ jobs:
 
     # Check the comment body for the deploy command. If the command is not there, we fail the work flow.
     - name: Check for Autodeploy
-      if: startsWith(env.ISSUE_COMMENT.body, '!sailbot autodeploy') == false
+      if: startsWith(env.ISSUE_COMMENT.body, '!sailbot autodeploy') == 'false'
       run: exit 1
   
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
