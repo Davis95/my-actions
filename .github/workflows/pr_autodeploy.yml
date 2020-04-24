@@ -24,7 +24,7 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
     - name: Check Vars
-      run: echo $COMMENT_BODY
+      run: echo "$COMMENT_BODY"
 
     # Check the comment body for the deploy command. If the command is not there, we fail the work flow.
     - name: Check for Autodeploy
