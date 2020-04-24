@@ -12,7 +12,7 @@ on:
      - created
 
 env:
-  DEPLOY_REQUESTED: ${{ startsWith(github.event.payload.comment.body, '!sailbot autodeploy') }}
+  COMMENT_BODY: ${{ github.event.payload.comment.body }}
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -26,24 +26,16 @@ jobs:
 
     # Check the comment body for the deploy command. If the command is not there, we fail the work flow.
     - name: Check for Autodeploy
-      if: !env.DEPLOY_REQUESTED
-      run: echo Autodeploy command found, starting workflow...
-
+      if: startsWith(env.COMMENT_BODY, '!sailbot autodeploy') != true
+      run: exit 1
+  
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
     - name: Checkout Repo
-      if: !env.DEPLOY_REQUESTED
       uses: actions/checkout@v2
 
     # Install deps
     - name: Install Deps
-      if: !env.DEPLOY_REQUESTED
       run: npm ci
-
-    
-    # - name: Get Pull Request Merge Commit SHA
-    #   uses: 
-
-   
 
     # # # Check for auto deploy
     # - name: Run Autodeploy Check Step
